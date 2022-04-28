@@ -28,25 +28,25 @@ document.addEventListener('DOMContentLoaded', function () {
             var formData = $(this).serialize();
             let csrftoken = this.querySelector("input[name='csrfmiddlewaretoken']").value;
             fetch(`/editpost/${this.dataset.id}`, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        "X-CSRFToken": csrftoken
-                    },
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
+                method: 'POST',
+                headers: {
+                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    "X-CSRFToken": csrftoken
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
 
-                    alertMessage(data, alert, this.dataset.id);
-                    this.querySelector('#div_buttons').style.display = "";
-                }).catch((error) => {
-                    alertMessage({
-                        'error': error.message
-                    }, alert, this.dataset.id);
-                    this.querySelector('#div_buttons').style.display = "";
-                });
+                alertMessage(data, alert, this.dataset.id);
+                this.querySelector('#div_buttons').style.display = "";
+            }).catch((error) => {
+                alertMessage({
+                    'error': error.message
+                }, alert, this.dataset.id);
+                this.querySelector('#div_buttons').style.display = "";
+            });
         }
 
     });
@@ -70,8 +70,9 @@ document.addEventListener('DOMContentLoaded', function () {
         a.onclick = function () {
             hideForm(this);
         };
-
     });
+
+    
     if (document.getElementById("btnfollow")) {
         document.querySelector('#btnfollow').addEventListener("click", function (event) {
             fetch(`/follow/${this.dataset.id}`)
